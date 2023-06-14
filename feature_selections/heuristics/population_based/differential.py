@@ -64,7 +64,7 @@ class Differential(Heuristic):
         string = "F factor: " + str(self.F) + os.linesep + "Crossover rate: " + str(self.CR) + os.linesep
         self.write("Differential Evolution", colMax, bestScore, bestModel, bestInd, g, t, last, string, out)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "DIFF"
         debut = time.time()
         old_path = self.path
@@ -147,4 +147,3 @@ class Differential(Heuristic):
                 print_out = ""
                 if stop:
                     break
-        result_queue.put((pid, scoreMax, time_debut, G - same2, len(colMax), old_path))

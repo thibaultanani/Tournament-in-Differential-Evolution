@@ -45,7 +45,7 @@ class Random(Heuristic):
         pop[:, -1] = np.random.randint(0, len(models), size=inds)
         return pop
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "RAND"
         debut = time.time()
         old_path = self.path
@@ -107,4 +107,3 @@ class Random(Heuristic):
                 print_out = ""
                 if stop:
                     break
-        result_queue.put((pid, scoreMax, time_debut, G - same, len(colMax), old_path))

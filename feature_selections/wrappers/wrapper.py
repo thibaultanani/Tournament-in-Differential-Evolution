@@ -20,7 +20,7 @@ class Wrapper(FeatureSelection):
         self.step = step or 1
 
     @abc.abstractmethod
-    def start(self, pid, result_queue):
+    def start(self, pid):
         pass
 
     @staticmethod

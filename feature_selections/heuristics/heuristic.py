@@ -22,7 +22,7 @@ class Heuristic(FeatureSelection):
         self.Gmax = Gmax or 1000000
 
     @abc.abstractmethod
-    def start(self, pid, result_queue):
+    def start(self, pid):
         pass
 
     @staticmethod

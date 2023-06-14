@@ -75,7 +75,7 @@ class Genetic(Heuristic):
         string = "Mutation Rate: " + str(self.mutation) + os.linesep
         self.write("Genetic Algorithm", colMax, bestScore, bestModel, bestInd, g, t, last, string, out)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "GENE"
         debut = time.time()
         old_path = self.path
@@ -161,4 +161,3 @@ class Genetic(Heuristic):
                 print_out = ""
                 if stop:
                     break
-        result_queue.put((pid, scoreMax, time_debut, G - same2, len(colMax), old_path))

@@ -44,7 +44,7 @@ class FeatureSelection:
             os.makedirs(self.path)
 
     @abc.abstractmethod
-    def start(self, pid, result_queue):
+    def start(self, pid):
         pass
 
     @staticmethod
@@ -59,4 +59,3 @@ class FeatureSelection:
             total = np.sum(confusion_matrix[i, :])
             results.append([tp, tn, fp, fn, total])
         return results
-

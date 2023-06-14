@@ -101,7 +101,7 @@ class Tide(Heuristic):
         string = string + os.linesep + "Alpha: " + str(self.alpha) + os.linesep
         self.write(name, colMax, bestScore, bestModel, bestInd, g, t, last, string, out)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "TIDE"
         debut = time.time()
         old_path = self.path
@@ -193,4 +193,3 @@ class Tide(Heuristic):
                 print_out = ""
                 if stop:
                     break
-        result_queue.put((pid, scoreMax, time_debut, G - same2, len(colMax), old_path))

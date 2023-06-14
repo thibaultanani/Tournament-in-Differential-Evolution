@@ -100,7 +100,7 @@ class Pbil(Heuristic):
         self.write("Population Based Incremental Learning", colMax, bestScore, bestModel, bestInd, g, t, last, string,
                    out)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "PBIL"
         debut = time.time()
         old_path = self.path
@@ -161,4 +161,3 @@ class Pbil(Heuristic):
                 same1 = 0
                 probas = self.create_probas(size=self.D)
                 m_probas = self.create_probas_models(size=len(self.model))
-        result_queue.put((pid, scoreMax, time_debut, G - same2, len(colMax), old_path))

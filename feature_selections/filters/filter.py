@@ -18,7 +18,7 @@ class Filter(FeatureSelection):
         self.k = k or int(self.D/2)
 
     @abc.abstractmethod
-    def start(self, pid, result_queue):
+    def start(self, pid):
         pass
 
     @staticmethod

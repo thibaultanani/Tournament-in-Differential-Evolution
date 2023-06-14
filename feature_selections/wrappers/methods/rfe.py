@@ -10,16 +10,16 @@ from utility import createDirectory, fitness_ind_models
 
 
 class Rfe(Wrapper):
-    def __init__(self, name, target, model, train, test=None, drops=None, metric=None, nexp=None, Tmax=None,
+    def __init__(self, name, target, model, train, test=None, drops=None, metric=None, Tmax=None,
                  ratio=None, suffix=None, k=None, step=None):
-        super().__init__(name, target, model, train, test, drops, metric, nexp, Tmax, ratio, suffix, k, step)
+        super().__init__(name, target, model, train, test, drops, metric, Tmax, ratio, suffix, k, step)
         """
         Class that implements foward feature elimination if k<(D/2) or backward feature elimination otherwise
         """
         self.path = os.path.join(self.path, 'rfe' + self.suffix)
         createDirectory(path=self.path)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         name = "Recursive Feature Elimination"
         debut = time.time()
         old_path = self.path
@@ -77,4 +77,3 @@ class Rfe(Wrapper):
                     break
         self.write(name=name, colMax=col, bestScore=score, bestModel=model, bestInd=vector, g=len(self.model),
                    t=timedelta(seconds=(time.time() - debut)), last=len(self.model) - same, out=print_out)
-        result_queue.put((pid, score, time_debut, len(self.model) - same, len(col), old_path))

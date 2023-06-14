@@ -18,7 +18,7 @@ class ReliefF(Filter):
         self.path = os.path.join(self.path, 'relieff' + self.suffix)
         createDirectory(path=self.path)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         name = "ReliefF"
         debut = time.time()
         old_path = self.path
@@ -62,4 +62,3 @@ class ReliefF(Filter):
                     break
         self.write(name=name, colMax=col, bestScore=score, bestModel=model, bestInd=vector, g=len(self.model),
                    t=timedelta(seconds=(time.time() - debut)), last=len(self.model) - same, out=print_out)
-        result_queue.put((pid, score, time_debut, len(self.model) - same, len(col), old_path))

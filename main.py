@@ -64,9 +64,9 @@ if __name__ == '__main__':
     processes = []
     for i in range(len(methods)):
         if type(methods[i]) in [type(x) for x in methods[:i]]:
-            processes.append(Process(target=methods[i].run, args=(2,)))
+            processes.append(Process(target=methods[i].start, args=(2,)))
         else:
-            processes.append(Process(target=methods[i].run, args=(1,)))
+            processes.append(Process(target=methods[i].start, args=(1,)))
 
     for p in processes:
         p.start()

@@ -72,7 +72,7 @@ class Tabu(Heuristic):
                  "Disruption (1 to Max): " + str(self.nb) + os.linesep
         self.write("Tabu Search", colMax, bestScore, bestModel, bestInd, g, t, last, string, out)
 
-    def start(self, pid, result_queue):
+    def start(self, pid):
         code = "TABU"
         debut = time.time()
         old_path = self.path
@@ -143,4 +143,3 @@ class Tabu(Heuristic):
                 print_out = ""
                 if stop:
                     break
-        result_queue.put((pid, scoreMax, time_debut, G - same, len(colMax), old_path))
