@@ -44,7 +44,7 @@ class Genetic(Heuristic):
                 mutant[chromosome] = int(not mutant[chromosome])
             else:
                 r = random.randint(0, len(models) - 1)
-                while r == mutant[chromosome]:
+                while r == mutant[chromosome] and len(models) > 1:
                     r = random.randint(0, len(models) - 1)
                 mutant[chromosome] = r
         return mutant

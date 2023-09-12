@@ -30,11 +30,11 @@ class Tabu(Heuristic):
         neighbor = individual.copy()
         bits_to_flip = random.sample(range(len(individual)), random.randint(0, distance))
         for chromosome in bits_to_flip:
-            if chromosome != len(individual - 1):
+            if chromosome != len(individual) - 1:
                 neighbor[chromosome] = int(not neighbor[chromosome])
             else:
                 r = random.randint(0, len(models) - 1)
-                while r == neighbor[chromosome]:
+                while r == neighbor[chromosome] and len(models) > 1:
                     r = random.randint(0, len(models) - 1)
                 neighbor[chromosome] = r
         return neighbor
