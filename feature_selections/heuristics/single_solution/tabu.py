@@ -83,7 +83,7 @@ class Tabu(Heuristic):
         # Measuring the execution time
         instant = time.time()
         # Generation (G) and Tabu List initialisation
-        G, tabuList, same, stop = 0, Queue(maxsize=self.size), 0, False
+        G, tabuList, same1, same2, stop = 0, Queue(maxsize=self.size), 0, 0, False
         # Population P initialisation
         P = create_population_models(inds=self.N, size=self.D + 1, models=self.model)
         # Evaluates population
@@ -122,24 +122,35 @@ class Tabu(Heuristic):
                     self.add_neighborhood(scores=scores, models=models, inds=neighborhood, cols=cols)
             tabuList = self.insert_tabu(tabuList=tabuList, individual=bestInd)
             G = G + 1
-            same = same + 1
+            same1, same2 = same1 + 1, same2 + 1
             mean_scores = float(np.mean(scores))
             time_instant = timedelta(seconds=(time.time() - instant))
             time_debut = timedelta(seconds=(time.time() - debut))
             # Update which individual is the best
             if bestScore > scoreMax:
-                same = 0
+                same1, same2 = 0, 0
                 scoreMax, modelMax, indMax, colMax = bestScore, bestModel, bestInd, bestCols
             print_out = self.sprint_(print_out=print_out, name=code, pid=pid, maxi=scoreMax, best=bestScore,
                                      mean=mean_scores, worst=worstScore, feats=len(colMax), time_exe=time_instant,
-                                     time_total=time_debut, g=G, cpt=same) + "\n"
+                                     time_total=time_debut, g=G, cpt=same2) + "\n"
+            # If convergence is reached restart
+            if same1 >= 300:
+                same1 = 0
+                P = create_population_models(inds=self.N, size=self.D + 1, models=self.model)
+                # Evaluates population
+                scores, models, cols = fitness_models(train=self.train, test=self.test, pop=P, target_name=self.target,
+                                                      metric=self.metric, model=self.model, ratio=self.ratio)
+                bestScore, worstScore, bestModel, bestInd, bestCols = \
+                    add(scores=scores, models=models, inds=np.asarray(P), cols=cols)
+                tabuList = Queue(maxsize=self.size)
+                tabuList = self.insert_tabu(tabuList=tabuList, individual=bestInd)
             # If the time limit is exceeded, we stop
             if time.time() - debut >= self.Tmax:
                 stop = True
             # Write important information to file
             if G % 10 == 0 or G == self.Gmax or stop:
                 self.specifics(colMax=colMax, bestScore=scoreMax, bestModel=modelMax, bestInd=indMax, g=G,
-                               t=timedelta(seconds=(time.time() - debut)), last=G - same, out=print_out)
+                               t=timedelta(seconds=(time.time() - debut)), last=G - same2, out=print_out)
                 print_out = ""
                 if stop:
                     break
