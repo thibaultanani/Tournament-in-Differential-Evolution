@@ -6,11 +6,11 @@ setup(
     packages=find_packages(),
     install_requires=[
         'matplotlib',
-        'mrmr - selection',
+        'mrmr-selection',
         'numpy',
         'openpyxl',
         'pandas',
-        'scikit - learn',
+        'scikit-learn',
         'scipy',
     ],
     author='Thibault Anani',
