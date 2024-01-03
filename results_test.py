@@ -2,7 +2,7 @@ import warnings
 
 from sklearn.metrics import confusion_matrix, recall_score
 
-from utility import read
+from utility.utility import read
 from sklearn.linear_model import RidgeClassifier, LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier

@@ -10,7 +10,7 @@ from sklearn.model_selection import StratifiedKFold
 
 
 def read(filename, separator=','):
-    path = os.path.join(os.getcwd(), os.path.join('datasets', filename))
+    path = os.path.join(os.getcwd(), os.path.join('../datasets', filename))
     try:
         data = pd.read_excel(path + '.xlsx', index_col=None, engine='openpyxl')
     except FileNotFoundError:
@@ -19,7 +19,7 @@ def read(filename, separator=','):
 
 
 def write(filename, data):
-    path = os.path.join(os.getcwd(), os.path.join('datasets', filename))
+    path = os.path.join(os.getcwd(), os.path.join('../datasets', filename))
     try:
         data.to_excel(path + '.xlsx', index=False)
     except FileNotFoundError:
@@ -43,12 +43,18 @@ def create_population(inds, size):
 
 
 def create_population_models(inds, size, models):
-    # Initialise the population
-    pop = np.random.rand(inds, size) < np.random.rand(inds, 1)
-    pop = pop[:, np.argsort(-np.random.rand(size), axis=0)]
-    pop = pop.astype(int)
-    # Replace last element with random integer between 0 and models-1
-    pop[:, -1] = np.random.randint(0, len(models), size=inds)
+    # Initialize the population
+    pop = np.zeros((inds, size), dtype=int)
+    # Determine the number of variables for each individual
+    variables_per_individual = size // inds
+    for i in range(inds):
+        # Select random indices for variables
+        selected_indices = np.random.choice(size, variables_per_individual + (i * variables_per_individual),
+                                            replace=False)
+        # Set the selected variables to 1
+        pop[i, selected_indices] = 1
+        # Assign a random model to the last element
+        pop[i, -1] = np.random.randint(0, len(models))
     return pop
 
 
@@ -217,6 +223,33 @@ def get_entropy(pop):
     return sum(H) / len(H)
 
 
+def get_entropy2(pop):
+    H, ratio = [], []
+    # Loop over the columns
+    for i in range(len(pop[0]) - 1):
+        # Initialize variables to store the counts of True and False values
+        true_count = 0
+        false_count = 0
+        # Loop over the rows and count the number of True and False values in the current column
+        for row in pop:
+            if row[i]:
+                true_count += 1
+            else:
+                false_count += 1
+        # Calculate the probabilities of True and False values
+        p_true = true_count / (true_count + false_count)
+        p_false = false_count / (true_count + false_count)
+        # Calculate the Shannon's entropy for the current column
+        if p_true == 0 or p_false == 0:
+            entropy = 0
+        else:
+            entropy = -(p_true * math.log2(p_true) + p_false * math.log2(p_false))
+        # Append the result to the list
+        H.append(entropy)
+        ratio.append(p_true)
+    return sum(H) / len(H), ratio
+
+
 def add(scores, models, inds, cols):
     argmax = np.argmax(scores)
     argmin = np.argmin(scores)
@@ -230,7 +263,7 @@ def add(scores, models, inds, cols):
 
 def get_res(foldername):
     folders = []
-    file_to_search = os.path.join("out", foldername)
+    file_to_search = os.path.join("../out", foldername)
     for filename in os.listdir(file_to_search):
         if os.path.isdir(os.path.join(file_to_search, filename)):
             folders.append(filename)
@@ -238,7 +271,7 @@ def get_res(foldername):
         [], [], [], [], [], [], [], [], [], []
     for folder in folders:
         if folder != 'filters':
-            f = open(os.path.join(os.path.join("out", foldername), os.path.join(folder, "results.txt")), 'r')
+            f = open(os.path.join(os.path.join("../out", foldername), os.path.join(folder, "results.txt")), 'r')
             recall = 0
             gen = False
             m = None
@@ -313,5 +346,5 @@ def get_res(foldername):
     data["Iterations (Max Score)"] = max_iters
     data["Time"] = times
     data["Rank"] = ranks
-    data.to_excel(os.path.join(os.path.join("out", foldername), "summary.xlsx"), index=False)
+    data.to_excel(os.path.join(os.path.join("../out", foldername), "summary.xlsx"), index=False)
 

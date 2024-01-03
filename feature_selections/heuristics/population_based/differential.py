@@ -5,7 +5,8 @@ import numpy as np
 
 from feature_selections.heuristics.heuristic import Heuristic
 from datetime import timedelta
-from utility import createDirectory, add, get_entropy, create_population_models, fitness_ind_models, fitness_models
+from utility.utility import createDirectory, add, get_entropy, create_population_models, fitness_ind_models,\
+    fitness_models
 
 
 class Differential(Heuristic):

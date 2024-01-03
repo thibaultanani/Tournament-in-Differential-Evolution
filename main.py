@@ -6,7 +6,7 @@ from feature_selections.heuristics.population_based import Genetic, Differential
 from feature_selections.heuristics.single_solution import Tabu
 from feature_selections.heuristics import Random
 
-from utility import read, get_res
+from utility.utility import read, get_res
 from sklearn.linear_model import RidgeClassifier, LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier

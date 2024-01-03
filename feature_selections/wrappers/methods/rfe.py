@@ -6,7 +6,7 @@ from feature_selections.wrappers.wrapper import Wrapper
 from sklearn.feature_selection import RFE
 from mlxtend.feature_selection import SequentialFeatureSelector
 from datetime import timedelta
-from utility import createDirectory, fitness_ind_models
+from utility.utility import createDirectory, fitness_ind_models
 
 
 class Rfe(Wrapper):

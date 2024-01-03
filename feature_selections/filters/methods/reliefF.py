@@ -5,7 +5,7 @@ import numpy as np
 from feature_selections.filters.filter import Filter
 from datetime import timedelta
 from skrebate import ReliefF as reliefF
-from utility import createDirectory, fitness_ind_models
+from utility.utility import createDirectory, fitness_ind_models
 
 
 class ReliefF(Filter):

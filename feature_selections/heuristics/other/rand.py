@@ -5,7 +5,7 @@ import warnings
 
 from feature_selections.heuristics.heuristic import Heuristic
 from datetime import timedelta
-from utility import createDirectory, add, fitness_models
+from utility.utility import createDirectory, add, fitness_models
 
 warnings.filterwarnings('ignore')
 

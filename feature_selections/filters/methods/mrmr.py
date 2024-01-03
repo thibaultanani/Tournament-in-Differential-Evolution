@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from feature_selections.filters.filter import Filter
 from mrmr import mrmr_classif
-from utility import createDirectory, fitness_ind_models
+from utility.utility import createDirectory, fitness_ind_models
 
 
 class Mrmr(Filter):

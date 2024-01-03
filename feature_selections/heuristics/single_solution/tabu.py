@@ -6,7 +6,7 @@ import numpy as np
 from feature_selections.heuristics.heuristic import Heuristic
 from datetime import timedelta
 from queue import Queue
-from utility import createDirectory, add, create_population_models, fitness_models
+from utility.utility import createDirectory, add, create_population_models, fitness_models
 
 
 class Tabu(Heuristic):

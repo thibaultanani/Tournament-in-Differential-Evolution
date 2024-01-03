@@ -4,7 +4,7 @@ import numpy as np
 
 from feature_selections.filters.filter import Filter
 from datetime import timedelta
-from utility import createDirectory, fitness_ind_models
+from utility.utility import createDirectory, fitness_ind_models
 
 
 class NoSelection(Filter):

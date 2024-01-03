@@ -6,7 +6,7 @@ import numpy as np
 from feature_selections.heuristics.heuristic import Heuristic
 from datetime import timedelta
 from copy import copy
-from utility import createDirectory, add, get_entropy, fitness_models
+from utility.utility import createDirectory, add, get_entropy, fitness_models
 
 
 class Pbil(Heuristic):
